@@ -1,0 +1,42 @@
+run_id,Abbreviation,chili_variety,chili_condition,sample_type,species_name,scoville,color,scoville_min,scoville_max,scoville_median
+1,HuWa,Hungarian Wax,fresh,flesh,Capsicum annuum var. annuum 'Hungarian wax',1000-15000 ,yellow,1000,15000,8000
+2,HoIt,Hot italian frying chili,fresh,flesh,Capsicum annuum ,100-1000,green,100,1000,550
+3,Shis,Shishito,fresh,flesh,Capsicum annuum ,50-200,green,50,200,125
+4,Pobl,Poblano,fresh,flesh,Capsicum annuum ,1000-1500,green,1000,1500,1250
+5,GrTh,Green Thai,fresh,flesh,Capsicum annuum ,50000-100000,green,50000,100000,75000
+6,ReTh,Red thai,fresh,flesh,Capsicum annuum ,110000,red,110000,110000,110000
+7,Chil,Chilaca chili,fresh,flesh,Capsicum annuum ,1000-2500,green,1000,2500,1750
+8,OrHa,Orange Habanero,fresh,flesh,Capsicum chinense,150000-350000,orange,150000,350000,250000
+9,GrBe,Green Bell,fresh,flesh,Capsicum annuum var. grossum,0,green,0,0,0
+10,InLo,Indian Long chili,fresh,flesh,Capsicum annuum,25000-100000,green,25000,100000,62500
+11,Anah,Anaheim,fresh,flesh,Capsicum annuum 'Anaheim',500-2500,green,500,2500,1500
+12,Jala,Jalepeno,fresh,flesh,Capsicum annuum 'Jalapeño',2500-8000,green,2500,8000,5250
+13,Fres,Fresno,fresh,flesh,Capsicum annuum,2500-10000,red,2500,10000,6250
+14,CrRe,Crushed red chili,dried,flesh,,32000-48000,red,32000,48000,40000
+15,Chip,Chipoltle,dried,flesh,,2500-8000,brown,2500,8000,5250
+16,Ancho,Ancho Chili,dried,flesh,,1000-1500,red,1000,1500,1250
+17,Arbol,Chili de arbol,dried,flesh,,15000-30000,red,15000,30000,22500
+18,Serr,Serrano,fresh,flesh,,10000-23000,red,10000,23000,16500
+19,NeMe,New Mex Chile,dried,flesh,,800-1400,red,800,1400,1100
+20,YeWa,Yellow wax,fresh,flesh,,5000-15000,yellow,5000,15000,10000
+21,Caye,Cayenne,powder,powder,,40000,red,40000,40000,40000
+1,HuWa,Hungarian Wax,fresh,seed,Capsicum annuum var. annuum 'Hungarian wax',1000-15000 ,yellow,1000,15000,8000
+2,HoIt,Hot italian frying chili,fresh,seed,Capsicum annuum ,100-1000,green,100,1000,550
+3,Shis,Shishito,fresh,seed,Capsicum annuum ,50-200,green,50,200,125
+4,Pobl,Poblano,fresh,seed,Capsicum annuum ,1000-1500,green,1000,1500,1250
+5,GrTh,Green Thai,fresh,seed,Capsicum annuum ,50000-100000,green,50000,100000,75000
+6,ReTh,Red thai,fresh,seed,Capsicum annuum ,110000,red,110000,110000,110000
+7,Chil,Chilaca chili,fresh,seed,Capsicum annuum ,1000-2500,green,1000,2500,1750
+8,OrHa,Orange Habanero,fresh,seed,Capsicum chinense,150000-350000,orange,150000,350000,250000
+9,GrBe,Green Bell,fresh,seed,Capsicum annuum var. grossum,0,green,0,0,0
+10,InLo,Indian Long chili,fresh,seed,Capsicum annuum,25000-100000,green,25000,100000,62500
+11,Anah,Anaheim,fresh,seed,Capsicum annuum 'Anaheim',500-2500,green,500,2500,1500
+12,Jala,Jalepeno,fresh,seed,Capsicum annuum 'Jalapeño',2500-8000,green,2500,8000,5250
+13,Fres,Fresno,fresh,seed,Capsicum annuum,2500-10000,red,2500,10000,6250
+14,CrRe,Crushed red chili,dried,seed,,32000-48000,red,32000,48000,40000
+15,Chip,Chipoltle,dried,seed,,2500-8000,brown,2500,8000,5250
+16,Ancho,Ancho Chili,dried,seed,,1000-1500,red,1000,1500,1250
+17,Arbol,Chili de arbol,dried,seed,,15000-30000,red,15000,30000,22500
+18,Serr,Serrano,fresh,seed,,10000-23000,red,10000,23000,16500
+19,NeMe,New Mex Chile,dried,seed,,800-1400,red,800,1400,1100
+20,YeWa,Yellow wax,fresh,seed,,5000-15000,yellow,5000,15000,10000

@@ -1,12 +1,11 @@
-# TODO: Replace with the name of the repo
+# 2024-disco-raman-hackathon
 
 [![run with conda](http://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/projects/miniconda/en/latest/)
 
-Note: Analysis repo names should be prefixed with the year (ie `2024-noveltree-analysis`). This prefix can be changed at time of publication if appropriate.
-
 ## Purpose
 
-TODO: Briefly describe the core analyses performed in the repository and the motivation behind them.
+This repo is intended to hold code and results pertaining to the raman hackathon carried out by the discovery team at the discovery offsite
+in March 2024.
 
 ## Installation and Setup
 
