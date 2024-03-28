@@ -34,7 +34,7 @@ for (i in seq_along(flesh_spectra)) {
     read.table(paste0("./data/peppers/pepper_flesh/",
                       flesh_spectra[[i]]), sep = ",",
                header = TRUE, row.names = NULL)
-  colnames(tmp) <- c("Intensity", "WaveNumber")
+  colnames(tmp) <- c("WaveNumber", "Intensity")
   tmp <- as.data.frame(apply(tmp, 2, as.numeric))
   tmp$chili_name <- run_ids[i]
   tmp$chili_condition <- sample_conditions[i]
@@ -72,7 +72,7 @@ for (i in seq_along(seed_spectra)) {
     read.table(paste0("./data/peppers/pepper_seeds/",
                       seed_spectra[[i]]),
                sep = ",", header = TRUE, row.names = NULL)
-  colnames(tmp) <- c("Intensity", "WaveNumber")
+  colnames(tmp) <- c("WaveNumber", "Intensity")
   tmp <- as.data.frame(apply(tmp, 2, as.numeric))
   tmp$chili_name <- run_ids[i]
   tmp$chili_condition <- sample_conditions[i]
@@ -103,10 +103,10 @@ seed_scoville_res <-
 # Save the plots and outputs to file
 
 # Now, plot along with the spectra and then save out to file
-flesh_med_spectra <- flesh_scoville_res$median_sample_wavenumber
+flesh_med_spectra <- flesh_scoville_res$median_sample_intensity
 flesh_med_spectra <-
   merge(flesh_med_spectra, unique(chili_flesh_dat[, c(1, 13)]), by = "id")
-seed_med_spectra <- seed_scoville_res$median_sample_wavenumber
+seed_med_spectra <- seed_scoville_res$median_sample_intensity
 seed_med_spectra <-
   merge(seed_med_spectra, unique(chili_seed_dat[, c(1, 13)]), by = "id")
 
@@ -114,24 +114,26 @@ seed_med_spectra <-
 # respective chili's scoville units
 flesh_spectra <-
   ggplot(data = flesh_med_spectra,
-         aes(x = Intensity, y = MedianWaveNumber,
+         aes(y = MedianIntensity, x = WaveNumber,
              color = log10(scoville_median + 1))) +
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "B", end = 0.9) +
-  ylab("Wave Number: Flesh") +
+  xlab("Wave Number (Pixel): Flesh") +
+  ylab("Intensity") +
   guides(color = guide_colorbar(title = "Median Scoville")) +
   scale_y_log10() +
   annotation_logticks(side = "l") +
   theme(legend.position = "top")
 seed_spectra <-
   ggplot(data = seed_med_spectra,
-         aes(x = Intensity, y = MedianWaveNumber,
+         aes(y = MedianIntensity, x = WaveNumber,
              color = log10(scoville_median + 1))) +
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "B", end = 0.9) +
-  ylab("Wave Number: Seed") +
+  xlab("Wave Number (Pixel): Seed") +
+  ylab("Intensity") +
   guides(color = guide_colorbar(title = "Median Scoville")) +
   theme(legend.position = "top")
 
@@ -192,3 +194,4 @@ write.table(seed_scoville_res$bs_coefficient_summary,
 write.table(seed_scoville_res$bs_coefficient_summary,
             file = "./results/peppers/chili_seed_scoville_lasso_coefficient_summary.csv",
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
+

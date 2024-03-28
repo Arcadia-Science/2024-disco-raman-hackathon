@@ -1,4 +1,4 @@
-id,Intensity,MedianWaveNumber,scoville_median
+id,WaveNumber,MedianIntensity,scoville_median
 Anah,0,0.014898,1500
 Anah,1,0.0147851,1500
 Anah,2,0.0148132,1500

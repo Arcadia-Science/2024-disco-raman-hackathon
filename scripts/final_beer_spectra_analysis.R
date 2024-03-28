@@ -16,7 +16,7 @@ for (f in seq_along(spectra_dirs)) {
                       spectra_dirs[f]), full.names = TRUE)
   for (i in seq_along(fpaths)) {
     tmp <- read.table(fpaths[[i]], sep = ",", header = TRUE, row.names = NULL)
-    colnames(tmp) <- c("Intensity", "WaveNumber")
+    colnames(tmp) <- c("WaveNumber", "Intensity")
     tmp <- as.data.frame(apply(tmp, 2, as.numeric))
     tmp$beer_name <- spectra_dirs[f]
     tmp$rep_id <- i
@@ -37,18 +37,19 @@ abv_res <-
                      response_var = beer_meta$ABV,
                      n_bs_reps = 5000)
 
-med_spectra <- abv_res$median_sample_wavenumber
+med_spectra <- abv_res$median_sample_intensity
 med_spectra <- merge(med_spectra, unique(beer_dat[, c(1, 11)]), by = "id")
 
 
 # Plot the individual spectra, colored by their respective beer's ABV
 abv_spectra <-
   ggplot(data = med_spectra,
-         aes(x = Intensity, y = MedianWaveNumber, color = ABV)) +
+         aes(y = MedianIntensity, x = WaveNumber, color = ABV)) +
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "A", end = 0.9) +
   ylab("Wave Number") +
+  ylab("Intensity") +
   guides(color = guide_colorbar(title = "ABV (%)")) +
   theme(legend.position = "top")
 

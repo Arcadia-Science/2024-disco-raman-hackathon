@@ -1,4 +1,4 @@
-id,Intensity,MedianWaveNumber,ABV
+id,WaveNumber,MedianIntensity,ABV
 1_dark-majik,0,0.00512661,11
 1_dark-majik,1,0.00519321,11
 1_dark-majik,2,0.00527797,11

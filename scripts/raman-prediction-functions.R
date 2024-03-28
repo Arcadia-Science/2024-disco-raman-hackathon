@@ -6,23 +6,24 @@ require(pbapply)
 require(tidyverse)
 require(ggplot2)
 require(dplyr)
+
 # A function to do all remaining analyses using these prepared data
 predict_from_raman <-
   function(spectral_data, response_var, n_bs_reps = 5000) {
     # Summarize across replicates within pepper to get the median wave number
     # for each pepper
     suppressMessages(suppressWarnings(
-      median_wavenumber <-
+      median_intensity <-
         spectral_data |>
-        group_by(id, Intensity) |>
-        summarize(MedianWaveNumber = median(WaveNumber),
-                  Intensity = mean(Intensity)) |>
+        group_by(id, WaveNumber) |>
+        summarize(WaveNumber = mean(WaveNumber),
+                  MedianIntensity = median(Intensity)) |>
         ungroup()
     ))
 
     # Now prepare for analysis with Lasso regression
     median_profile <-
-      dcast(median_wavenumber, id ~ Intensity, value.var = "MedianWaveNumber")
+      dcast(median_intensity, id ~ WaveNumber, value.var = "MedianIntensity")
     rownames(median_profile) <- median_profile$id
     median_profile <- median_profile[, -1]
 
@@ -97,7 +98,7 @@ predict_from_raman <-
       do.call(cbind, lapply(lasso_res, function(x) x$optimal_coefficients[, 1]))
     bs_coefs <- as.data.frame(bs_coefs)[-1, ]
     # Reformat
-    bs_coefs$Intensity <- rownames(bs_coefs)
+    bs_coefs$WaveNumber <- rownames(bs_coefs)
     # Determine the number of times each intensity was sampled/retained in Lasso
     times_selected <- apply(bs_coefs[, -(n_bs_reps+1)], 1, function(x) sum(x != 0))
     # Calculate mean, standard error, and confidence interval
@@ -105,7 +106,7 @@ predict_from_raman <-
 
     bs_coefs_summary <-
       mclapply(seq_len(nrow(bs_coefs)), function(x) {
-        intensity <- bs_coefs[x, "Intensity"]
+        wavenumber <- bs_coefs[x, "WaveNumber"]
         x <- unlist(bs_coefs[rep_cols][x, ])
         mean <- mean(x, na.rm = TRUE)
         sd <- sd(x, na.rm = TRUE)
@@ -115,7 +116,7 @@ predict_from_raman <-
         return(data.frame(Mean = mean, SD = sd, SE = se,
                           LowerCI = lower_ci,
                           UpperCI = upper_ci,
-                          Intensity = as.numeric(intensity)))
+                          WaveNumber = as.numeric(wavenumber)))
       }, mc.cores = 9L)
     bs_coefs_summary <- do.call(rbind, bs_coefs_summary)
 
@@ -130,12 +131,12 @@ predict_from_raman <-
 
     message("Plotting...")
     ramanhattan_plt <-
-      ggplot(bs_coefs_summary, aes(x = Intensity, color = Significant)) +
+      ggplot(bs_coefs_summary, aes(x = WaveNumber, color = Significant)) +
       geom_hline(yintercept = 0, size = 0.5, alpha = 0.5, lty = 2) +
       geom_point(alpha = 0.75, aes(y = Mean, size = times_selected/n_bs_reps)) +
       scale_size(range = c(0.05, 5)) +
-      geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, group = "Intensity"), width = 0) +
-      labs(x = "Intensity",
+      geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, group = "WaveNumber"), width = 0) +
+      labs(x = "WaveNumber",
            y = "Coefficient") +
       scale_color_manual(values = c("black", "red")) +
       guides(size = guide_legend(title = "% Reps. Sampled")) +
@@ -180,7 +181,7 @@ predict_from_raman <-
     )
     message("Done!")
     return(list(
-      median_sample_wavenumber = median_wavenumber,
+      median_sample_intensity = median_intensity,
       lasso_results = lasso_res,
       bs_coefficient_summary = bs_coefs_summary,
       ramanhattan_plot = ramanhattan_plt,
