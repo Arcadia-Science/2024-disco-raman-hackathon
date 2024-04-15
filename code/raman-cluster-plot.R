@@ -1,0 +1,61 @@
+source('code/raman-cluster-functions.R')
+
+# Beer
+beer <- load_spectra("data/beer/")
+
+# Chilis
+peppers <- load_spectra("data/peppers/")
+
+# Algae
+algae <- load_spectra("data/algae/")
+
+# Combine data
+all <- cbind(
+  beer,
+  peppers,
+  algae
+)
+colnames(all) <- c(
+  rep("beer", ncol(beer)),
+  rep("peppers", ncol(peppers)),
+  rep("algae", ncol(algae))
+)
+
+# Combine into list
+all_data <- list(
+  all = all,
+  beer = beer,
+  peppers = peppers,
+  algae = algae
+)
+
+# Plot all
+pdf("img/raman-cluster-plots.pdf",
+  width = 16,
+  height = 4
+)
+par(mfrow = c(1, 4))
+
+for (i in 1:length(all_data)) {
+  # Set up data
+  data <- t(all_data[[i]])
+  samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
+
+  # Plot
+  calculate_and_plot_PCA(data,
+    samples,
+    cex = 1.5,
+    add_labels = TRUE
+  )
+
+  # Add title
+  title(
+    main = names(all_data)[i],
+    font.main = 1,
+    cex.main = 1.5
+  )
+}
+dev.off()
+
+## Note: figure legends are clunky, need cleaning up in image editor 
+## e.g. Illustrator
