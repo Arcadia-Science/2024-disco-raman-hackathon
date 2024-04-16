@@ -1,3 +1,5 @@
+library(MASS)
+
 ## 'load_spectra'
 ## Expects path to a master directory with sub-directories containing
 ## .csv files of Raman spectra corresponding to a specific sample type
@@ -39,13 +41,9 @@ load_spectra <- function(path) {
 calculate_and_plot_PCA <- function(data,
                                    samples,
                                    return_PCA = FALSE,
-                                   add_labels = FALSE,
                                    ...) {
   # PCA
   pca <- prcomp(data)
-
-  # Calculate %variance explained
-  eigs <- round(pca$sdev^2 / sum(pca$sdev^2), 4) * 100
 
   # Set up expanded Arcadia palette
   all_colors <- c(
@@ -68,21 +66,60 @@ calculate_and_plot_PCA <- function(data,
     bg = cols,
     cex.axis = 1.5,
     cex.lab = 1.5,
-    xlab = paste("PC1 (", eigs[1], "%)", sep = ""),
-    ylab = paste("PC2 (", eigs[2], "%)", sep = ""),
+    xlab = 'PC1',
+    ylab = 'PC2',
     ...
   )
-
-  # Add labels (if add_labels == TRUE)
-  if (add_labels == TRUE) {
-    legend("topright",
-      legend = unique(samples),
-      text.col = all_colors[1:length(unique(samples))]
-    )
-  }
 
   # Return (if return_PCA == TRUE)
   if (return_PCA == TRUE) {
     return(pca)
+  }
+}
+
+## 'calculate_and_plot_LDA'
+## Given a data matrix and sample list, perform LDA and plot the
+## first two LDs using Arcadia's color scheme/formatting
+calculate_and_plot_LDA <- function(data,
+                                   samples,
+                                   return_LDA = FALSE,
+                                   ...) {
+  # LDA
+  mod = lda(samples ~ as.matrix(data))
+  
+  # Predict outcomes
+  p = as.data.frame(predict(mod, 
+                            as.data.frame(data)))
+  
+  # Set up expanded Arcadia palette
+  all_colors <- c(
+    "#5088C5", "#F28360", "#F7B846", "#97CD78",
+             "#7A77AB", "#f898AE", "#3B9886", "#c85152",
+             "#73B5E3", "#BAB0A8", "#8A99AD", "#FFB984",
+             "#C6E7F4", "#F8C5C1", "#F5E4BE", "#B5BEA4",
+             "#DCBFFC", "#B6C8D4", "#DAD3C7", "#DA9085"
+  )
+  
+  
+  # Get colors for each sample
+  cols <- all_colors[1:length(unique(samples))]
+  cols <- cols[match(samples, unique(samples))]
+  
+  # Plot
+  plot(p$x.LD1,
+       p$x.LD2,
+       pch = 21,
+       col = darken_color(cols),
+       bg = cols,
+       cex.axis = 1.5,
+       cex.lab = 1.5,
+       xlab = 'LD1',
+       ylab = 'LD2',
+       ...
+  )
+  
+  # Return (if return_PCA == TRUE)
+  if (return_LDA == TRUE) {
+    return(mod)
   }
 }

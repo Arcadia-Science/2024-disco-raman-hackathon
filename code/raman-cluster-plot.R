@@ -1,5 +1,6 @@
 source('code/raman-cluster-functions.R')
 
+#####Load data#####
 # Beer
 beer <- load_spectra("data/beer/")
 
@@ -29,23 +30,41 @@ all_data <- list(
   algae = algae
 )
 
-# Plot all
+#####Plot#####
+# Set up plot
 pdf("img/raman-cluster-plots.pdf",
   width = 16,
   height = 4
 )
 par(mfrow = c(1, 4))
 
-for (i in 1:length(all_data)) {
+# PCA on all data
+data = t(all)
+samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
+
+# Plot
+calculate_and_plot_PCA(data,
+                       samples,
+                       cex = 1.5
+)
+
+# Add title
+title(
+  main = 'all',
+  font.main = 1,
+  cex.main = 1.5
+)
+
+# LDA on individual sample types
+for (i in 2:length(all_data)) {
   # Set up data
   data <- t(all_data[[i]])
   samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
   # Plot
-  calculate_and_plot_PCA(data,
+  calculate_and_plot_LDA(data,
     samples,
     cex = 1.5,
-    add_labels = TRUE
   )
 
   # Add title
@@ -54,8 +73,7 @@ for (i in 1:length(all_data)) {
     font.main = 1,
     cex.main = 1.5
   )
+  
 }
 dev.off()
 
-## Note: figure legends are clunky, need cleaning up in image editor 
-## e.g. Illustrator
