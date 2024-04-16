@@ -4,7 +4,7 @@ library(MASS)
 ## Expects path to a master directory with sub-directories containing
 ## .csv files of Raman spectra corresponding to a specific sample type
 ## .csv files are expected to be two columns:
-## col1: pixel/wavenumber 
+## col1: pixel/wavenumber
 ## col2: intensity
 load_spectra <- function(path) {
   # List directories
@@ -66,8 +66,8 @@ calculate_and_plot_PCA <- function(data,
     bg = cols,
     cex.axis = 1.5,
     cex.lab = 1.5,
-    xlab = 'PC1',
-    ylab = 'PC2',
+    xlab = "PC1",
+    ylab = "PC2",
     ...
   )
 
@@ -85,39 +85,41 @@ calculate_and_plot_LDA <- function(data,
                                    return_LDA = FALSE,
                                    ...) {
   # LDA
-  mod = lda(samples ~ as.matrix(data))
-  
+  mod <- lda(samples ~ as.matrix(data))
+
   # Predict outcomes
-  p = as.data.frame(predict(mod, 
-                            as.data.frame(data)))
-  
+  p <- as.data.frame(predict(
+    mod,
+    as.data.frame(data)
+  ))
+
   # Set up expanded Arcadia palette
   all_colors <- c(
     "#5088C5", "#F28360", "#F7B846", "#97CD78",
-             "#7A77AB", "#f898AE", "#3B9886", "#c85152",
-             "#73B5E3", "#BAB0A8", "#8A99AD", "#FFB984",
-             "#C6E7F4", "#F8C5C1", "#F5E4BE", "#B5BEA4",
-             "#DCBFFC", "#B6C8D4", "#DAD3C7", "#DA9085"
+    "#7A77AB", "#f898AE", "#3B9886", "#c85152",
+    "#73B5E3", "#BAB0A8", "#8A99AD", "#FFB984",
+    "#C6E7F4", "#F8C5C1", "#F5E4BE", "#B5BEA4",
+    "#DCBFFC", "#B6C8D4", "#DAD3C7", "#DA9085"
   )
-  
-  
+
+
   # Get colors for each sample
   cols <- all_colors[1:length(unique(samples))]
   cols <- cols[match(samples, unique(samples))]
-  
+
   # Plot
   plot(p$x.LD1,
-       p$x.LD2,
-       pch = 21,
-       col = darken_color(cols),
-       bg = cols,
-       cex.axis = 1.5,
-       cex.lab = 1.5,
-       xlab = 'LD1',
-       ylab = 'LD2',
-       ...
+    p$x.LD2,
+    pch = 21,
+    col = darken_color(cols),
+    bg = cols,
+    cex.axis = 1.5,
+    cex.lab = 1.5,
+    xlab = "LD1",
+    ylab = "LD2",
+    ...
   )
-  
+
   # Return (if return_PCA == TRUE)
   if (return_LDA == TRUE) {
     return(mod)

@@ -1,6 +1,6 @@
-source('code/raman-cluster-functions.R')
+source("code/raman-cluster-functions.R")
 
-#####Load data#####
+##### Load data#####
 # Beer
 beer <- load_spectra("data/beer/")
 
@@ -30,7 +30,7 @@ all_data <- list(
   algae = algae
 )
 
-#####Plot#####
+##### Plot#####
 # Set up plot
 pdf("img/raman-cluster-plots.pdf",
   width = 16,
@@ -39,18 +39,18 @@ pdf("img/raman-cluster-plots.pdf",
 par(mfrow = c(1, 4))
 
 # PCA on all data
-data = t(all)
+data <- t(all)
 samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
 # Plot
 calculate_and_plot_PCA(data,
-                       samples,
-                       cex = 1.5
+  samples,
+  cex = 1.5
 )
 
 # Add title
 title(
-  main = 'all',
+  main = "all",
   font.main = 1,
   cex.main = 1.5
 )
@@ -73,7 +73,5 @@ for (i in 2:length(all_data)) {
     font.main = 1,
     cex.main = 1.5
   )
-  
 }
 dev.off()
-
