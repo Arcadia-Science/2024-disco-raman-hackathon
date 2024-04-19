@@ -136,7 +136,7 @@ predict_from_raman <-
       geom_point(alpha = 0.75, aes(y = Mean, size = times_selected/n_bs_reps)) +
       scale_size(range = c(0.05, 5)) +
       geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, group = "WaveNumber"), width = 0) +
-      labs(x = "WaveNumber",
+      labs(x = "Wave Number (Pixel)",
            y = "Coefficient") +
       scale_color_manual(values = c("black", "red")) +
       guides(size = guide_legend(title = "% Reps. Sampled")) +

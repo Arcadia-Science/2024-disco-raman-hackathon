@@ -48,7 +48,7 @@ abv_spectra <-
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "A", end = 0.9) +
-  ylab("Wave Number") +
+  ylab("Wave Number (Pixel)") +
   ylab("Intensity") +
   guides(color = guide_colorbar(title = "ABV (%)")) +
   theme(legend.position = "top")
@@ -81,3 +81,4 @@ write.table(med_spectra, file = "./results/beer/beer_abv_median_wavenumber.csv",
 write.table(abv_res$bs_coefficient_summary,
             file = "./results/beer/beer_abv_lasso_coefficient_summary.csv",
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
+

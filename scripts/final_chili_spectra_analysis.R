@@ -119,7 +119,7 @@ flesh_spectra <-
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "B", end = 0.9) +
-  xlab("Wave Number (Pixel): Flesh") +
+  xlab("Wave Number (Pixel)") +
   ylab("Intensity") +
   guides(color = guide_colorbar(title = "Median Scoville")) +
   scale_y_log10() +
@@ -132,7 +132,7 @@ seed_spectra <-
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "B", end = 0.9) +
-  xlab("Wave Number (Pixel): Seed") +
+  xlab("Wave Number (Pixel)") +
   ylab("Intensity") +
   guides(color = guide_colorbar(title = "Median Scoville")) +
   theme(legend.position = "top")
