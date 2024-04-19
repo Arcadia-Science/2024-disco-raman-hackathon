@@ -5,22 +5,27 @@ setwd("~/Documents/ArcadiaScience/github/2024-disco-raman-hackathon/")
 source("./scripts/raman-prediction-functions.R")
 
 beer_meta <-
-  read.table("./data/beer/BEER_data_ahp.csv", sep = ",", header = TRUE)
-beer_meta$beer_name <- paste0(beer_meta$Sample, "_", beer_meta$beer_string)
+  read.table("./data/beer/metadata.csv", sep = ",", header = TRUE)
+spectra_dirs <- list.dirs("./data/beer", recursive = TRUE)[-1]
+# Create a useful, simple name for the beers to use as an ID
+beer_meta$beer_name <- 
+  gsub("\\(.*", "", beer_meta$Beer) |> 
+  str_to_lower() |> 
+  gsub(pattern = "\\s+$", replacement = "") |>
+  gsub(pattern = " ", replacement = "-") |> 
+  gsub(pattern = "’", replacement = "")
 
-spectra_dirs <- list.files("./data/beer/spectra/")
 beer_dat <- list()
 for (f in seq_along(spectra_dirs)) {
   fpaths <-
-    list.files(paste0("./data/beer/spectra/",
-                      spectra_dirs[f]), full.names = TRUE)
+    list.files(spectra_dirs[f], full.names = TRUE)
   for (i in seq_along(fpaths)) {
     tmp <- read.table(fpaths[[i]], sep = ",", header = TRUE, row.names = NULL)
-    colnames(tmp) <- c("WaveNumber", "Intensity")
+    colnames(tmp) <- c("Pixel", "Intensity")
     tmp <- as.data.frame(apply(tmp, 2, as.numeric))
-    tmp$beer_name <- spectra_dirs[f]
+    tmp$beer_name <- gsub(".*/", "", spectra_dirs[f])
     tmp$rep_id <- i
-    tmp$beer_id <- paste0(spectra_dirs[f], "_rep_", i)
+    tmp$beer_id <- paste0(gsub(".*/", "", spectra_dirs[f]), "_rep_", i)
     beer_dat[[length(beer_dat) + 1]] <- tmp
   }
 }
@@ -38,17 +43,17 @@ abv_res <-
                      n_bs_reps = 5000)
 
 med_spectra <- abv_res$median_sample_intensity
-med_spectra <- merge(med_spectra, unique(beer_dat[, c(1, 11)]), by = "id")
-
+med_spectra <- merge(med_spectra, unique(beer_dat[, c(1,10)]), by = "id")
+colnames(med_spectra)[4] <- 'ABV'
 
 # Plot the individual spectra, colored by their respective beer's ABV
 abv_spectra <-
   ggplot(data = med_spectra,
-         aes(y = MedianIntensity, x = WaveNumber, color = ABV)) +
+         aes(y = MedianIntensity, x = Pixel, color = ABV)) +
   geom_line(alpha = 0.7, size = 0.75, aes(group = id)) +
   theme_classic(base_size = 14) +
   scale_color_viridis_c(option = "A", end = 0.9) +
-  ylab("Wave Number (Pixel)") +
+  ylab("Pixel") +
   ylab("Intensity") +
   guides(color = guide_colorbar(title = "ABV (%)")) +
   theme(legend.position = "top")
@@ -76,7 +81,7 @@ ggsave(final_abv_plt, height = 8, width = 14, dpi = 600,
        file = "./results/beer/beer_abv_prediction.png")
 
 # Save some other intermediates:
-write.table(med_spectra, file = "./results/beer/beer_abv_median_wavenumber.csv",
+write.table(med_spectra, file = "./results/beer/beer_abv_median_Pixel.csv",
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
 write.table(abv_res$bs_coefficient_summary,
             file = "./results/beer/beer_abv_lasso_coefficient_summary.csv",
