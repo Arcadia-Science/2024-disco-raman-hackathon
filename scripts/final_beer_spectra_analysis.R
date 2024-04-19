@@ -8,11 +8,11 @@ beer_meta <-
   read.table("./data/beer/metadata.csv", sep = ",", header = TRUE)
 spectra_dirs <- list.dirs("./data/beer", recursive = TRUE)[-1]
 # Create a useful, simple name for the beers to use as an ID
-beer_meta$beer_name <- 
-  gsub("\\(.*", "", beer_meta$Beer) |> 
-  str_to_lower() |> 
+beer_meta$beer_name <-
+  gsub("\\(.*", "", beer_meta$Beer) |>
+  str_to_lower() |>
   gsub(pattern = "\\s+$", replacement = "") |>
-  gsub(pattern = " ", replacement = "-") |> 
+  gsub(pattern = " ", replacement = "-") |>
   gsub(pattern = "’", replacement = "")
 
 beer_dat <- list()
@@ -43,8 +43,8 @@ abv_res <-
                      n_bs_reps = 5000)
 
 med_spectra <- abv_res$median_sample_intensity
-med_spectra <- merge(med_spectra, unique(beer_dat[, c(1,10)]), by = "id")
-colnames(med_spectra)[4] <- 'ABV'
+med_spectra <- merge(med_spectra, unique(beer_dat[, c(1, 10)]), by = "id")
+colnames(med_spectra)[4] <- "ABV"
 
 # Plot the individual spectra, colored by their respective beer's ABV
 abv_spectra <-
