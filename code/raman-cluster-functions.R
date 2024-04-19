@@ -4,8 +4,8 @@ library(MASS)
 ## Expects path to a master directory with sub-directories containing
 ## .csv files of Raman spectra corresponding to a specific sample type
 ## .csv files are expected to be two columns:
-## col1: pixel/wavenumber
-## col2: intensity
+## col1 = pixel/wavenumber
+## col2 = intensity
 load_spectra <- function(path) {
   # List directories
   files <- list.files(path)
@@ -14,15 +14,15 @@ load_spectra <- function(path) {
   dat <- list()
 
   # Loop over directories and load .csvs
-  for (i in 1:length(files)) {
+  for (i in seq_along(files)) {
     # List files
-    toLoad <- list.files(paste(path, files[i], sep = ""))
+    to_load <- list.files(paste(path, files[i], sep = ""))
 
     # Load and add to list
-    for (j in 1:length(toLoad)) {
+    for (j in seq_along(to_load)) {
       dat[[paste(files[i], j, sep = "_")]] <- read.csv(paste(path,
         files[i], "/",
-        toLoad[j],
+        to_load[j],
         sep = ""
       ))[, 2]
     }
@@ -38,10 +38,10 @@ load_spectra <- function(path) {
 ## 'calculate_and_plot_PCA'
 ## Given a data matrix and sample list, perform PCA and plot the
 ## first two PCAs using Arcadia's color scheme/formatting
-calculate_and_plot_PCA <- function(data,
-                                   samples,
-                                   return_PCA = FALSE,
-                                   ...) {
+plot_PCA <- function(data,
+                     samples,
+                     return = FALSE,
+                     ...) {
   # PCA
   pca <- prcomp(data)
 
@@ -54,9 +54,8 @@ calculate_and_plot_PCA <- function(data,
     "#DCBFFC", "#B6C8D4", "#DAD3C7", "#DA9085"
   )
 
-
   # Get colors for each sample
-  cols <- all_colors[1:length(unique(samples))]
+  cols <- all_colors[seq_along(length(unique(samples)))]
   cols <- cols[match(samples, unique(samples))]
 
   # Plot
@@ -71,8 +70,8 @@ calculate_and_plot_PCA <- function(data,
     ...
   )
 
-  # Return (if return_PCA == TRUE)
-  if (return_PCA == TRUE) {
+  # Return (if return == TRUE)
+  if (return == TRUE) {
     return(pca)
   }
 }
@@ -80,10 +79,10 @@ calculate_and_plot_PCA <- function(data,
 ## 'calculate_and_plot_LDA'
 ## Given a data matrix and sample list, perform LDA and plot the
 ## first two LDs using Arcadia's color scheme/formatting
-calculate_and_plot_LDA <- function(data,
-                                   samples,
-                                   return_LDA = FALSE,
-                                   ...) {
+plot_LDA <- function(data,
+                     samples,
+                     return = FALSE,
+                     ...) {
   # LDA
   mod <- lda(samples ~ as.matrix(data))
 
@@ -102,9 +101,8 @@ calculate_and_plot_LDA <- function(data,
     "#DCBFFC", "#B6C8D4", "#DAD3C7", "#DA9085"
   )
 
-
   # Get colors for each sample
-  cols <- all_colors[1:length(unique(samples))]
+  cols <- all_colors[seq_along(length(unique(samples)))]
   cols <- cols[match(samples, unique(samples))]
 
   # Plot
@@ -120,8 +118,8 @@ calculate_and_plot_LDA <- function(data,
     ...
   )
 
-  # Return (if return_PCA == TRUE)
-  if (return_LDA == TRUE) {
+  # Return (if return == TRUE)
+  if (return == TRUE) {
     return(mod)
   }
 }
