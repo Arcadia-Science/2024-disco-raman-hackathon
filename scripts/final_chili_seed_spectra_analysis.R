@@ -85,22 +85,24 @@ final_seed_plt <-
             rel_widths = c(3, 1))
 
 # Create output directory
-dir.create("./results/peppers/", showWarnings = FALSE, recursive = FALSE)
+out_dir <- "./results/peppers/"
+dir.create(out_dir, showWarnings = FALSE, recursive = FALSE)
 
 # Now save to file
 ggsave(final_seed_plt, height = 8, width = 14,
-       file = "./results/peppers/chili_seed_scoville_prediction.pdf")
+       file = paste0(out_dir, "chili_seed_scoville_prediction.pdf"))
 ggsave(final_seed_plt, height = 8, width = 14, dpi = 600,
-       file = "./results/peppers/chili_seed_scoville_prediction.png")
+       file = paste0(out_dir, "chili_seed_scoville_prediction.png"))
 
 # Save some other intermediates:
 write.table(seed_med_spectra,
-            file = "./results/peppers/chili_seed_scoville_median_Pixel.csv",
+            file = paste0(out_dir, "chili_seed_scoville_median_Pixel.csv"),
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
 write.table(seed_scoville_res$bs_coefficient_summary,
-            file = "./results/peppers/chili_seed_scoville_lasso_coefficient_summary.csv",
+            file = paste0(out_dir,
+                          "chili_seed_scoville_lasso_coefficient_summary.csv"),
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
 write.table(seed_scoville_res$bs_coefficient_summary,
-            file = "./results/peppers/chili_seed_scoville_lasso_coefficient_summary.csv",
+            file = paste0(out_dir,
+                          "chili_seed_scoville_lasso_coefficient_summary.csv"),
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
-

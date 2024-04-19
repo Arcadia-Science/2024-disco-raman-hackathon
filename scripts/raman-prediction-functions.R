@@ -10,14 +10,15 @@ require(dplyr)
 # A function to do all remaining analyses using these prepared data
 predict_from_raman <-
   function(spectral_data, response_var, n_bs_reps = 5000) {
-    # Summarize across replicates within pepper to get the median pixel (wave number)
+    # Summarize across replicates within pepper to get the
+    # median pixel (wave number)
     # for each pepper
     suppressMessages(suppressWarnings(
       median_intensity <-
         spectral_data |>
-        group_by(id, Pixel) |>
+        group_by(id, Pixel) |> # nolint
         summarize(Pixel = mean(Pixel),
-                  MedianIntensity = median(Intensity)) |>
+                  MedianIntensity = median(Intensity)) |> # nolint
         ungroup()
     ))
 
@@ -27,12 +28,8 @@ predict_from_raman <-
     rownames(median_profile) <- median_profile$id
     median_profile <- median_profile[, -1]
 
-    # To use sliding windows
-    # windows <- window_spectra(median_profile, window_size = 30, overlap = 10)
-
     # Assuming flesh_pcs is your dataframe
     predictors <- as.matrix(median_profile)
-    # predictors <- as.matrix(windows)
 
     message("Conducting Lasso (L1) regression...")
     lasso_res <-
@@ -100,7 +97,8 @@ predict_from_raman <-
     # Reformat
     bs_coefs$Pixel <- rownames(bs_coefs)
     # Determine the number of times each intensity was sampled/retained in Lasso
-    times_selected <- apply(bs_coefs[, -(n_bs_reps+1)], 1, function(x) sum(x != 0))
+    times_selected <-
+      apply(bs_coefs[, -(n_bs_reps + 1)], 1, function(x) sum(x != 0))
     # Calculate mean, standard error, and confidence interval
     rep_cols <- colnames(bs_coefs)[-ncol(bs_coefs)]
 
@@ -131,11 +129,11 @@ predict_from_raman <-
 
     message("Plotting...")
     ramanhattan_plt <-
-      ggplot(bs_coefs_summary, aes(x = Pixel, color = Significant)) +
+      ggplot(bs_coefs_summary, aes(x = Pixel, color = Significant)) + # nolint
       geom_hline(yintercept = 0, size = 0.5, alpha = 0.5, lty = 2) +
-      geom_point(alpha = 0.75, aes(y = Mean, size = times_selected/n_bs_reps)) +
+      geom_point(alpha = 0.75, aes(y = Mean, size = times_selected/n_bs_reps)) + # nolint
       scale_size(range = c(0.05, 5)) +
-      geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, group = "Pixel"), width = 0) +
+      geom_errorbar(aes(ymin = LowerCI, ymax = UpperCI, group = "Pixel"), width = 0) + # nolint
       labs(x = "Pixel",
            y = "Coefficient") +
       scale_color_manual(values = c("black", "red")) +
@@ -147,7 +145,7 @@ predict_from_raman <-
     bs_mse <- data.frame(bs_rep = 1:n_bs_reps, mse = bs_mse)
     suppressWarnings(
       mse_plt <-
-        ggplot(bs_mse, aes(mse)) +
+        ggplot(bs_mse, aes(mse)) + # nolint
         geom_histogram(fill = "grey", color = "black", bins = 50) +
         geom_vline(xintercept = mean(na.omit(bs_mse$mse)),
                    alpha = 0.75, size = 0.75, lty = 2, color = "red") +
@@ -162,7 +160,7 @@ predict_from_raman <-
 
     suppressWarnings(
       var_exp_plt <-
-        ggplot(var_exp, aes(variance_explained)) +
+        ggplot(var_exp, aes(variance_explained)) + # nolint
         geom_histogram(fill = "grey", color = "black", bins = 50) +
         theme_classic(base_size = 14) +
         theme(legend.position = "bottom") +
@@ -190,32 +188,3 @@ predict_from_raman <-
       combined_final_plot = final_ramanhattan_plt
     ))
   }
-
-# Function to create overlapping windows and calculate mean for each window
-window_spectra <- function(spectra, window_size = 3, overlap = 1) {
-  windows <- list()
-  i <- 1
-  end <- i + window_size - 1
-  window_mindpoints <- c()
-  while (end < ncol(spectra)) {
-    start <- i
-    end <- i + window_size - 1
-    end <-
-      if (end > ncol(spectra)) {
-        ncol(spectra)
-      } else {
-        end
-      }
-    window_data <- spectra[, start:end]
-    window_mean <- rowMeans(window_data)
-    window_mindpoints <- c(window_mindpoints, mean(start, end))
-    if (i == 1) {
-      windows <- data.frame(window_mean)
-    } else {
-      windows <- cbind(windows, window_mean)
-    }
-    i <- i + overlap
-  }
-  colnames(windows) <- window_mindpoints
-  return(windows)
-}
