@@ -4,8 +4,8 @@ library(MASS)
 ## Expects path to a master directory with sub-directories containing
 ## .csv files of Raman spectra corresponding to a specific sample type
 ## .csv files are expected to be two columns:
-## col1 = pixel/wavenumber
-## col2 = intensity
+## col1: pixel/wavenumber
+## col2: ntensity
 load_spectra <- function(path) {
   # List directories
   files <- list.files(path)
@@ -38,7 +38,7 @@ load_spectra <- function(path) {
 ## 'calculate_and_plot_PCA'
 ## Given a data matrix and sample list, perform PCA and plot the
 ## first two PCAs using Arcadia's color scheme/formatting
-plot_PCA <- function(data,
+plotPCA <- function(data,
                      samples,
                      return = FALSE,
                      ...) {
@@ -79,7 +79,7 @@ plot_PCA <- function(data,
 ## 'calculate_and_plot_LDA'
 ## Given a data matrix and sample list, perform LDA and plot the
 ## first two LDs using Arcadia's color scheme/formatting
-plot_LDA <- function(data,
+plotLDA <- function(data,
                      samples,
                      return = FALSE,
                      ...) {
