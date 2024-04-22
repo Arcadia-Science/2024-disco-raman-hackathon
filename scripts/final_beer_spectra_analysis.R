@@ -86,4 +86,3 @@ write.table(med_spectra, file = "./results/beer/beer_abv_median_Pixel.csv",
 write.table(abv_res$bs_coefficient_summary,
             file = "./results/beer/beer_abv_lasso_coefficient_summary.csv",
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
-
