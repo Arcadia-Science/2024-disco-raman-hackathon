@@ -43,7 +43,7 @@ data <- t(all)
 samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
 # Plot
-plot_PCA(data,
+plotPCA(data,
   samples,
   cex = 1.5
 )
@@ -62,7 +62,7 @@ for (i in 2:length(all_data)) {
   samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
   # Plot
-  plot_LDA(data,
+  plotLDA(data,
     samples,
     cex = 1.5,
   )
