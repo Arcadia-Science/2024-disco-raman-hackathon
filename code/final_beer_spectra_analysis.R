@@ -2,7 +2,7 @@ library(ggplot2)
 library(tidyverse)
 
 setwd("~/Documents/ArcadiaScience/github/2024-disco-raman-hackathon/")
-source("./scripts/raman-prediction-functions.R")
+source("./code/raman-prediction-functions.R")
 
 beer_meta <-
   read.table("./data/beer/metadata.csv", sep = ",", header = TRUE)
