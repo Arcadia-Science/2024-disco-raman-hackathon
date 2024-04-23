@@ -15,11 +15,19 @@ def plot_spectra(
     of samples.
 
     Each subplot contains the measured spectra of an individual sample
-    with the average spectrum for that sample plotted in bold.
-    Samples can be ordered via the `order` and `ascending` parameters.
-    For instance, the beer spectra can be plotted by ABV (%) by
+    with the average spectrum for that sample plotted in bold. Samples
+    are ordered via the `samples_ordered` parameter, which takes a list
+    of sample names also present in `spectra`. For instance, to sort
+    the chili spectra by their perceived heat,
 
-    >>> plot_spectra(beer_spectra, beer_dataframe, order="ABV (%)")
+    >>> chili_names_ordered_by_heat = chili_dataframe.sort_values(
+            "mean_scoville", ascending=False
+        )["chili_variety"].tolist()
+    >>> plot_spectra(
+            chili_spectra,
+            chili_dataframe,
+            samples_ordered=chili_names_ordered_by_heat,
+        )
 
     Parameters
     ----------
