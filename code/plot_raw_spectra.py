@@ -47,6 +47,7 @@ def plot_spectra(
     if colors is None:
         # default to [aegean, amber, seaweed]
         colors = ["#5088C5", "#F28360", "#3B9886"]
+    
     cmap = LinearSegmentedColormap.from_list(
         name="",
         colors=colors,
