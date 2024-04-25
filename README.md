@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This repo is intended to hold code and results pertaining to the raman hackathon carried out by the discovery team at the discovery offsite
+This repo contains code and results pertaining to the Raman hackathon carried out by the Discovery team at the Discovery offsite.
 in March 2024.
 
 ## Installation and Setup
