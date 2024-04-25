@@ -6,3 +6,8 @@ dependencies:
   - jupyter=1.0.0
   - r-base=4.3.2
   - r-lintr=3.1.1
+  - matplotlib
+  - numpy
+  - natsort
+  - tqdm
+  - pandas
