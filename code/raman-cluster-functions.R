@@ -1,11 +1,11 @@
 library(MASS)
 
-## 'load_spectra'
-## Expects path to a master directory with sub-directories containing
-## .csv files of Raman spectra corresponding to a specific sample type
-## .csv files are expected to be two columns:
-## col1: pixel/wavenumber
-## col2: ntensity
+## Function: 'load_spectra'
+## Expects path to a master directory with sub-directories containing two input files:
+## - .csv files of Raman spectra corresponding to a specific sample type
+## The .csv files are expected to be two columns:
+## 1. pixel/wavenumber
+## 2. col2: ntensity
 load_spectra <- function(path) {
   # List directories
   files <- list.files(path)
