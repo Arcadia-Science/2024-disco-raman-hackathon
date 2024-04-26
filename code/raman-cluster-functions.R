@@ -61,7 +61,7 @@ plot_pca <- function(data,
   # Plot
   plot(pca$x[, 1:2],
     pch = 21,
-    col = darken_color(cols),
+    col = ArcadiaColorBrewer::darken_color(cols),
     bg = cols,
     cex.axis = 1.5,
     cex.lab = 1.5,
