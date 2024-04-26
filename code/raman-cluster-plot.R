@@ -43,7 +43,7 @@ data <- t(all)
 samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
 # Plot
-plotPCA(data,
+plot_pca(data,
   samples,
   cex = 1.5
 )
