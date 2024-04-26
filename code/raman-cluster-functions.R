@@ -79,7 +79,7 @@ plot_pca <- function(data,
 ## 'calculate_and_plot_LDA'
 ## Given a data matrix and sample list, perform LDA and plot the
 ## first two LDs using Arcadia's color scheme/formatting
-plotLDA <- function(data,
+plot_lda <- function(data,
                      samples,
                      return = FALSE,
                      ...) {
