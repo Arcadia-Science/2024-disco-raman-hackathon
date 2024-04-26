@@ -62,7 +62,7 @@ for (i in 2:length(all_data)) {
   samples <- unlist(lapply(strsplit(rownames(data), "_"), function(x) x[1]))
 
   # Plot
-  plotLDA(data,
+  plot_lda(data,
     samples,
     cex = 1.5,
   )
