@@ -1,5 +1,5 @@
 library(MASS)
-
+library(ArcadiaColorBrewer)
 ## Function: 'load_spectra'
 ## Expects path to a master directory with sub-directories containing two input files:
 ## - .csv files of Raman spectra corresponding to a specific sample type
