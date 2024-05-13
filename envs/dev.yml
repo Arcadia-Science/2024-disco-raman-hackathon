@@ -13,3 +13,8 @@ dependencies:
   - r-glmnet=4.1.8
   - r-pbapply=1.7.2
   - r-dplyr=1.1.4
+  - matplotlib
+  - numpy
+  - natsort
+  - tqdm
+  - pandas
