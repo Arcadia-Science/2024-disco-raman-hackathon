@@ -39,9 +39,9 @@ load_spectra <- function(path) {
 ## Given a data matrix and sample list, perform PCA and plot the
 ## first two PCAs using Arcadia's color scheme/formatting
 plot_pca <- function(data,
-                     samples,
-                     return = FALSE,
-                     ...) {
+                    samples,
+                    return = FALSE,
+                    ...) {
   # PCA
   pca <- prcomp(data)
 
