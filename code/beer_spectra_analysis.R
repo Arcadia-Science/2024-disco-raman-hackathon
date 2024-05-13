@@ -1,8 +1,7 @@
 library(ggplot2)
 library(tidyverse)
 
-setwd("~/Documents/ArcadiaScience/github/2024-disco-raman-hackathon/")
-source("./code/raman-prediction-functions.R")
+source("./code/raman_prediction_functions.R")
 
 # Read in the beer metadata (ABV, IBU, etc.)
 beer_meta <-
@@ -85,7 +84,7 @@ ggsave(final_abv_plt, height = 8, width = 14, dpi = 600,
        file = "./results/beer/beer_abv_prediction.png")
 
 # Save some other intermediates:
-write.table(med_spectra, file = "./results/beer/beer_abv_median_Pixel.csv",
+write.table(med_spectra, file = "./results/beer/beer_abv_median_pixel.csv",
             sep = ",", col.names = TRUE, row.names = FALSE, quote = FALSE)
 write.table(abv_res$bs_coefficient_summary,
             file = "./results/beer/beer_abv_lasso_coefficient_summary.csv",

@@ -1,8 +1,7 @@
 library(ggplot2)
 library(tidyverse)
 
-setwd("~/Documents/ArcadiaScience/github/2024-disco-raman-hackathon/")
-source("./code/raman-prediction-functions.R")
+source("./code/raman_prediction_functions.R")
 # Ignore first column of metadata - it's just the row number
 chili_meta <-
   read.table("./data/peppers/metadata.csv", sep = ",", header = TRUE)[, -1]
