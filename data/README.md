@@ -21,7 +21,7 @@ For each group of samples, there is also a metadata.csv file that contains non-s
 │   │   ├── 2024-03-22-14-03-22.csv
 │   │   └── 2024-03-22-14-03-28.csv
 |   ├── ...
-│   └── metadata.txt
+│   └── metadata.csv
 ├── beer
 │   ├── big-love
 │   │   ├── 2024-03-21-13-37-31.csv
