@@ -4,7 +4,7 @@
 
 Each directory within `data/` contains subdirectories of spectral data recorded as csv files. The subdirectories are organized by sample name -- a preview of which is shown below for each group of samples: algae, beer, and peppers (both seeds and flesh). In almost all cases, there are 3 csv files per sample. Each csv file has two columns, `Pixels #` and `Intensity (a.u.)`, which are uncalibrated and output directly by the Raman spectrometer.
 
-For each group of samples, there is also a metadata.csv (or metadata.txt) file that contains non-spectral information regarding each sample. The metadata.csv file for beer, for example, contains information regarding each beer's ABV level, its style, the brewery in which it was made, and tags compiled by Untappd regarding its flavor profile.
+For each group of samples, there is also a metadata.csv file that contains non-spectral information regarding each sample. The metadata.csv file for beer, for example, contains information regarding each beer's ABV level, its style, the brewery in which it was made, and tags compiled by Untappd regarding its flavor profile.
 
 
 ### Preview of directory structure
