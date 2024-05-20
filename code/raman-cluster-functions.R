@@ -1,7 +1,8 @@
 library(MASS)
 library(ArcadiaColorBrewer)
 ## Function: 'load_spectra'
-## Expects path to a master directory with sub-directories containing two input files:
+## Expects path to a master directory with 
+## sub-directories containing two input files:
 ## - .csv files of Raman spectra corresponding to a specific sample type
 ## The .csv files are expected to be two columns:
 ## 1. pixel/wavenumber
@@ -39,9 +40,9 @@ load_spectra <- function(path) {
 ## Given a data matrix and sample list, perform PCA and plot the
 ## first two PCAs using Arcadia's color scheme/formatting
 plot_pca <- function(data,
-                    samples,
-                    return = FALSE,
-                    ...) {
+                     samples,
+                     return = FALSE,
+                     ...) {
   # PCA
   pca <- prcomp(data)
 
@@ -80,9 +81,9 @@ plot_pca <- function(data,
 ## Given a data matrix and sample list, perform LDA and plot the
 ## first two LDs using Arcadia's color scheme/formatting
 plot_lda <- function(data,
-                    samples,
-                    return = FALSE,
-                    ...) {
+                     samples,
+                     return = FALSE,
+                     ...) {
   # LDA
   mod <- lda(samples ~ as.matrix(data))
 
