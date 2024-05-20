@@ -13,8 +13,8 @@ dependencies:
   - r-glmnet=4.1.8
   - r-pbapply=1.7.2
   - r-dplyr=1.1.4
-  - matplotlib
-  - numpy
-  - natsort
-  - tqdm
-  - pandas
+  - matplotlib=3.8.4
+  - numpy=1.26.4
+  - natsort=8.4.0
+  - tqdm=4.66.2
+  - pandas=2.2.2
