@@ -4,7 +4,9 @@ library(tidyverse)
 source("./code/raman_prediction_functions.R")
 # Ignore first column of metadata - it's just the row number
 chili_meta <-
-  read.table("./data/peppers_seeds/metadata.csv", sep = ",", header = TRUE)[, -1]
+  read.table("./data/peppers_seeds/metadata.csv",
+             sep = ",",
+             header = TRUE)[, -1]
 # Change pepper abbreviation to ID for consistency with beer analysis
 colnames(chili_meta)[1] <- "id"
 # And then pull out the data
