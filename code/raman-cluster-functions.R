@@ -56,14 +56,22 @@ plot_pca <- function(data,
   )
 
   # Get colors for each sample
-  cols <- all_colors[seq_len(length(unique(samples)))]
-  cols <- cols[match(samples, unique(samples))]
+  unique_samples <- unique(samples)
+  cols <- all_colors[seq_len(length(unique_samples))]
+  sample_colors <- setNames(cols, unique_samples)
+  unique_colors <- sample_colors[samples]
 
   # Plot
+  # Adjust the plotting area dimensions to make the plot longer and less wide
+  par(mfrow = c(1, 1), mar = c(5, 5, 2, 1), pin = c(5, 7))
+
+  # Plot
+  layout(matrix(1:2, nrow = 1), widths = c(0.5, 0.5))
+  par(mar = c(5, 5, 2, 1))
   plot(pca$x[, 1:2],
     pch = 21,
-    col = ArcadiaColorBrewer::darken_color(cols),
-    bg = cols,
+    col = ArcadiaColorBrewer::darken_color(unique_colors),
+    bg = unique_colors,
     cex.axis = 1.5,
     cex.lab = 1.5,
     xlab = "PC1",
@@ -71,11 +79,23 @@ plot_pca <- function(data,
     ...
   )
 
+  # Add legend
+  par(mar = c(5, 1, 2, 1))
+  plot.new()
+  legend("center",
+    legend = names(sample_colors), fill = sample_colors,
+    title = "Samples", cex = 0.8, xpd = NA
+  )
+
+  # Reset layout
+  layout(1)
+
   # Return (if return == TRUE)
   if (return == TRUE) {
     return(pca)
   }
 }
+
 
 ## 'calculate_and_plot_LDA'
 ## Given a data matrix and sample list, perform LDA and plot the
@@ -99,13 +119,16 @@ plot_lda <- function(data, samples, return = FALSE, ...) {
   # Get colors for each sample
   unique_samples <- unique(samples)
   cols <- all_colors[seq_len(length(unique_samples))]
-  unique_colors <- cols[match(samples, unique_samples)]
+  sample_colors <- setNames(cols, unique_samples)
+  unique_colors <- sample_colors[samples]
 
   # Create layout to leave space for the legend
-  layout(matrix(1:2, nrow = 1), widths = c(0.8, 0.2))
+  # Adjust the plotting area dimensions to make the plot longer and less wide
+  par(mfrow = c(1, 1), mar = c(5, 5, 2, 1), pin = c(5, 7))
 
   # Plot
-  par(mar = c(5, 5, 2, 1)) # Adjust margins to fit the plot and the legend
+  layout(matrix(1:2, nrow = 1), widths = c(0.5, 0.5))
+  par(mar = c(5, 5, 2, 1))
   plot(p$x.LD1,
     p$x.LD2,
     pch = 21,
@@ -119,12 +142,12 @@ plot_lda <- function(data, samples, return = FALSE, ...) {
   )
 
   # Add legend
-  par(mar = c(5, 1, 2, 1)) # Adjust margins for the legend
+  par(mar = c(2, 2, 2, 2)) # Adjust margins for the legend
   plot.new() # Create a new plot for the legend
   legend("center",
-    legend = unique_samples, fill = unique_colors,
+    legend = names(sample_colors), fill = sample_colors,
     title = "Samples", cex = 0.8, xpd = NA
-  ) # Adjusted cex for smaller text
+  )
 
   # Reset layout
   layout(1)
