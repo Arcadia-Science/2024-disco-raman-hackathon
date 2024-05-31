@@ -18,6 +18,12 @@ mamba env create -n disco-raman --file envs/dev.yml
 conda activate disco-raman
 ```
 
+Some R packages are not installable through conda. For these, please run:
+
+```{bash}
+Rscript envs/install_r_packages.R
+```
+
 ## Data
 
 The contents and organization of the data used in the analyses for the pub are described in [data](data).
@@ -74,12 +80,12 @@ Preview of contents within each directory.
 
 ### Methods
 
-Below is a brief, stepwise overview of how to generate each figure in the pub (and in doing so perform each corresponding analysis).
+Below is a brief, stepwise overview of how to generate each figure in the pub (and in doing so perform each corresponding analysis). The outputs are stored in the `results/` directory.
 
 1. Generate Figure 2 (visualization of raw spectra) by running `notebooks/Fig-2_Raw-Spectra.ipynb`.
-2. Generate Figure 3 (spectral clustering of samples via PCA and LDA) by running `code/raman-cluster-plot.R`.
-3. Generate Figure 4 (local importance and contribution of spectra in predicting alcohol content) by running `code/beer_spectra_analysis.R`.
-4. Generate Figure 5 (local importance and contribution of spectra in predicting perceived heat) by running `code/chili_seed_spectra_analysis.R`.
+2. Generate Figure 3 (spectral clustering of samples via PCA and LDA) by running `Rscript code/raman-cluster-plot.R` from the root of the repository.
+3. Generate Figure 4 (local importance and contribution of spectra in predicting alcohol content) by running `Rscript code/beer_spectra_analysis.R` from the root of the repository.
+4. Generate Figure 5 (local importance and contribution of spectra in predicting perceived heat) by running `Rscript code/chili_seed_spectra_analysis.R` from the root of the repository.
 
 ### Compute Specifications
 

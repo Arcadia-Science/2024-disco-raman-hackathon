@@ -13,6 +13,7 @@ dependencies:
   - r-glmnet=4.1.8
   - r-pbapply=1.7.2
   - r-dplyr=1.1.4
+  - r-devtools=2.4.5
   - matplotlib=3.8.4
   - numpy=1.26.4
   - natsort=8.4.0
