@@ -32,7 +32,7 @@ all_data <- list(
 
 ##### Plot#####
 # Set up plot
-pdf("img/raman-cluster-plots.pdf",
+pdf("results/raman-cluster-plots.pdf",
   width = 16,
   height = 4
 )
