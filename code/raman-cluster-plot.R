@@ -5,7 +5,7 @@ source("code/raman-cluster-functions.R")
 beer <- load_spectra("data/beer/")
 
 # Chilis
-peppers <- load_spectra("data/peppers/")
+peppers <- load_spectra("data/peppers_seeds/")
 
 # Algae
 algae <- load_spectra("data/algae/")
