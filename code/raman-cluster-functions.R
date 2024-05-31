@@ -80,18 +80,12 @@ plot_pca <- function(data,
 ## 'calculate_and_plot_LDA'
 ## Given a data matrix and sample list, perform LDA and plot the
 ## first two LDs using Arcadia's color scheme/formatting
-plot_lda <- function(data,
-                     samples,
-                     return = FALSE,
-                     ...) {
+plot_lda <- function(data, samples, return = FALSE, ...) {
   # LDA
   mod <- lda(samples ~ as.matrix(data))
 
   # Predict outcomes
-  p <- as.data.frame(predict(
-    mod,
-    as.data.frame(data)
-  ))
+  p <- as.data.frame(predict(mod, as.data.frame(data)))
 
   # Set up expanded Arcadia palette
   all_colors <- c(
@@ -103,21 +97,37 @@ plot_lda <- function(data,
   )
 
   # Get colors for each sample
-  cols <- all_colors[seq_len(length(unique(samples)))]
-  cols <- cols[match(samples, unique(samples))]
+  unique_samples <- unique(samples)
+  cols <- all_colors[seq_len(length(unique_samples))]
+  unique_colors <- cols[match(samples, unique_samples)]
+
+  # Create layout to leave space for the legend
+  layout(matrix(1:2, nrow = 1), widths = c(0.8, 0.2))
 
   # Plot
+  par(mar = c(5, 5, 2, 1)) # Adjust margins to fit the plot and the legend
   plot(p$x.LD1,
     p$x.LD2,
     pch = 21,
-    col = ArcadiaColorBrewer::darken_color(cols),
-    bg = cols,
+    col = ArcadiaColorBrewer::darken_color(unique_colors),
+    bg = unique_colors,
     cex.axis = 1.5,
     cex.lab = 1.5,
     xlab = "LD1",
     ylab = "LD2",
     ...
   )
+
+  # Add legend
+  par(mar = c(5, 1, 2, 1)) # Adjust margins for the legend
+  plot.new() # Create a new plot for the legend
+  legend("center",
+    legend = unique_samples, fill = unique_colors,
+    title = "Samples", cex = 0.8, xpd = NA
+  ) # Adjusted cex for smaller text
+
+  # Reset layout
+  layout(1)
 
   # Return (if return == TRUE)
   if (return == TRUE) {
