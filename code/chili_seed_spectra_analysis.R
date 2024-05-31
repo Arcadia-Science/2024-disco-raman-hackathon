@@ -4,7 +4,7 @@ library(tidyverse)
 source("./code/raman_prediction_functions.R")
 # Ignore first column of metadata - it's just the row number
 chili_meta <-
-  read.table("./data/peppers/metadata.csv", sep = ",", header = TRUE)[, -1]
+  read.table("./data/peppers_seeds/metadata.csv", sep = ",", header = TRUE)[, -1]
 # Change pepper abbreviation to ID for consistency with beer analysis
 colnames(chili_meta)[1] <- "id"
 # And then pull out the data
@@ -18,8 +18,8 @@ run_ids <- paste0(rep(seed_meta$id, each = 3), "_", 1:3)
 sample_conditions <- rep(seed_meta$chili_condition, each = 3)
 
 # And then read in the spectra data
-# Remove first, which corresponds to the base directory "./data/peppers"
-spectra_dirs <- list.dirs("./data/peppers", full.names = TRUE)[-1]
+# Remove first, which corresponds to the base directory "./data/peppers_seeds"
+spectra_dirs <- list.dirs("./data/peppers_seeds", full.names = TRUE)[-1]
 chili_seed_dat <- list()
 for (f in seq_along(spectra_dirs)) {
   fpaths <-
