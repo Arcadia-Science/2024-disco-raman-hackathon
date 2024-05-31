@@ -7,20 +7,20 @@
 ## Purpose
 
 This repository contains code and results pertaining to the Raman hackathon carried out by the Discovery team at the Discovery offsite in March 2024.
-It accompanies the Pub "[Raman spectroscopy enables rapid and inexpensive exploration of biology](https://doi.org/10.57844/arcadia-085e-3ecf)".
+It accompanies the pub "[Raman spectroscopy enables rapid and inexpensive exploration of biology](https://doi.org/10.57844/arcadia-085e-3ecf)".
 
 ## Installation and Setup
 
-This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following command to create the pipeline run environment.
+This repository uses conda to manage software environments and installations. You can find operating system-specific instructions for installing miniconda [here](https://docs.conda.io/projects/miniconda/en/latest/). After installing conda and [mamba](https://mamba.readthedocs.io/en/latest/), run the following commands to create the pipeline run environment.
 
 ```{bash}
-mamba env create -n <NAME> --file envs/dev.yml
-conda activate <NAME>
+mamba env create -n disco-raman --file envs/dev.yml
+conda activate disco-raman
 ```
 
 ## Data
 
-The contents and organization of the data used in the analyses for the Pub are described in [data](data).
+The contents and organization of the data used in the analyses for the pub are described in [data](data).
 
 ## Overview
 
@@ -29,17 +29,17 @@ The contents and organization of the data used in the analyses for the Pub are d
 This repository is organized into the following top-level directories.
 
 * **code**:
-  collection of R and Python scripts used for the analysis described in the Pub as well as for generating the figures.
+  collection of R and Python scripts used for the analysis described in the pub as well as for generating the figures.
 * **data**:
   subdirectories of spectral data recorded as csv files.
 * **envs**:
   YAML file including the packages and dependencies used for creating the conda environment.
 * **notebooks**:
-  a Jupyter notebook written in Python for generating Figure 2 of the Pub.
+  a Jupyter notebook written in Python for generating Figure 2 of the pub.
 * **resources**:
   a csv file containing the list of parts used to construct the Raman spectrometer.
 * **results**:
-  collection of output files used for the analysis described in the Pub as well as for generating the figures.
+  collection of output files used for the analysis described in the pub as well as for generating the figures.
 
 Preview of contents within each directory.
 
@@ -74,7 +74,7 @@ Preview of contents within each directory.
 
 ### Methods
 
-Below is a brief, stepwise overview of how to generate each figure in the Pub (and in doing so perform each corresponding analysis).
+Below is a brief, stepwise overview of how to generate each figure in the pub (and in doing so perform each corresponding analysis).
 
 1. Generate Figure 2 (visualization of raw spectra) by running `notebooks/Fig-2_Raw-Spectra.ipynb`.
 2. Generate Figure 3 (spectral clustering of samples via PCA and LDA) by running `code/raman-cluster-plot.R`.
