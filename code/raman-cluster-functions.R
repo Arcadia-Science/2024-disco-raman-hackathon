@@ -56,7 +56,7 @@ plot_pca <- function(data,
   )
 
   # Get colors for each sample
-  cols <- all_colors[seq_along(length(unique(samples)))]
+  cols <- all_colors[seq_len(length(unique(samples)))]
   cols <- cols[match(samples, unique(samples))]
 
   # Plot
@@ -103,7 +103,7 @@ plot_lda <- function(data,
   )
 
   # Get colors for each sample
-  cols <- all_colors[seq_along(length(unique(samples)))]
+  cols <- all_colors[seq_len(length(unique(samples)))]
   cols <- cols[match(samples, unique(samples))]
 
   # Plot
